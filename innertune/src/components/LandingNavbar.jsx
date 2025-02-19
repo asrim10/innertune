@@ -34,7 +34,7 @@ export const LandingNavbar = () => {
           </ul>
           <div className="hidden lg:flex justify-center items-center space-x-12">
             <a href="#" className="py-2 px-3 border rounded-md">
-              Sign In
+              Log In
             </a>
             <a
               href="#"
@@ -65,7 +65,7 @@ export const LandingNavbar = () => {
             </ul>
             <div className="flex space-x-6">
               <a href="#" className="py-2 px-3 border rounded-md">
-                Sign In
+                Log In
               </a>
               <a
                 href="#"
