@@ -1,7 +1,27 @@
 import React from "react";
+import { ToastContainer, toast } from "react-toastify";
+import { Routes, Route } from "react-router-dom";
+import AddSong from "./pages/addSong";
+import AddAlbum from "./pages/addAlbum";
+import ListSong from "./pages/listSong";
+import ListAlbum from "./pages/listAlbum";
 
 const App = () => {
-  return <div>App</div>;
+  return (
+    <div className="flex items-start min-h-screen">
+      <ToastContainer />
+      <div className="flex-1 h-screen overflow-y-scroll bg-[#F3FFF7]">
+        <div className="pt-8 pl-5 sm:pt-12 pl-12">
+          <Routes>
+            <Route path="/add-Song" element={<AddSong />} />
+            <Route path="/add-album" element={<AddAlbum />} />
+            <Route path="/list-song" element={<ListSong />} />
+            <Route path="/list-album" element={<ListAlbum />} />
+          </Routes>
+        </div>
+      </div>
+    </div>
+  );
 };
 
 export default App;
