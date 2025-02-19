@@ -24,7 +24,7 @@ const AddSong = () => {
       formData.append("description", description);
       formData.append("album", album);
 
-      const res = await axios.post(`${url} / api / song / add`, formData);
+      // const res = await axios.post(`${url} / api / song / add`, formData);
 
       if (res.data.success) {
         toast.success("Song added successfully");
