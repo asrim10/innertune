@@ -3,7 +3,7 @@ import { ToastContainer, toast } from "react-toastify";
 import { Routes, Route } from "react-router-dom";
 import AddSong from "./pages/addSong";
 import AddAlbum from "./pages/addAlbum";
-import ListSong from "./pages/listSong";
+import ListSong from "./pages/ListSong";
 import ListAlbum from "./pages/listAlbum";
 import Sidebar from "./components/Sidebar";
 import Navbar from "./components/Navbar";

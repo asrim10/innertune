@@ -1,4 +1,4 @@
-import { addSong, listSong, deleteSong } from "../controller/songController.js";
+import { addSong, listSong, deleteSong , getAllSongs} from "../controller/songController.js";
 import express from "express";
 import upload from "../middleware/multer.js";
 
@@ -12,5 +12,7 @@ songRouter.get("/list", listSong);
 
 // Route to delete a song by ID (use DELETE method)
 songRouter.post("/delete", deleteSong);
+
+songRouter.get("/all", getAllSongs);
 
 export default songRouter;

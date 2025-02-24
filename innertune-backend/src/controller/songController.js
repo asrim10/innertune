@@ -28,14 +28,22 @@ export const addSong = async (req, res) => {
 };
 
 // Function to list all songs
-export const listSong= async (req, res) => {
+export const listSong = async (req, res) => {
   try {
     const songs = await Song.findAll();
-    res.status(200).json(songs);
+    
+    const updatedSongs = songs.map(song => ({
+      ...song.dataValues,
+      image_url: `http://localhost:4000/uploads/${song.image_url.replace(/^uploads[\\/]+/, "")}` // Fix duplicate 'uploads/'
+    }));
+
+    res.json(updatedSongs);
   } catch (error) {
-    res.status(500).json({ error: error.message });
+    res.status(500).json({ error: "Failed to fetch songs" });
   }
 };
+
+
 
 // Function to delete a song by ID
 export const deleteSong = async (req, res) => {
@@ -52,5 +60,19 @@ export const deleteSong = async (req, res) => {
   } catch (error) {
     console.error(error);
     return res.status(500).json({ success: false, message: "Error occurred while deleting the song" });
+  }
+};
+
+export const getAllSongs = async (req, res) => {
+  try {
+    const songs = await Song.findAll();
+    const updatedSongs = songs.map((song) => ({
+      ...song.dataValues,
+      image_url: `http://localhost:4000/uploads/${song.image_url}`,
+      audio_url: `${BASE_URL}/uploads/${song.audio_url}`,
+    }));
+    res.json({ success: true, songs: updatedSongs });
+  } catch (error) {
+    res.status(500).json({ success: false, message: error.message });
   }
 };
