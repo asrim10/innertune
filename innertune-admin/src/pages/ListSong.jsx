@@ -7,25 +7,41 @@ const ListSong = () => {
 
   const fetchSongs = async () => {
     try {
-      const response = await axios.get(`${url}/api/song/list`);
-      if (response.data.success) {
-        setData(response.data.songs);
+      const response = await axios.get("http://localhost:4000/api/song/list");
+      console.log("Fetch Songs Response:", response.data); // Log the full response
+
+      if (Array.isArray(response.data)) {
+        setData(response.data);
+      } else {
+        toast.error("No songs data found.");
+        console.log(
+          "Response does not contain valid songs data:",
+          response.data
+        );
       }
     } catch (error) {
-      toast.error("Error occured");
+      toast.error("Error occurred while fetching songs");
+      console.error(error);
     }
   };
 
   const removeSong = async (id) => {
     try {
-      const response = await axios.post(`${url}/api/song/remove`, { id });
+      const response = await axios.post(
+        "http://localhost:4000/api/song/delete",
+        {
+          id,
+        }
+      );
 
       if (response.data.success) {
         toast.success("Song removed successfully");
         await fetchSongs();
+      } else {
+        toast.error("Failed to remove song");
       }
     } catch (error) {
-      toast.error("Error occured");
+      toast.error("Error occurred while deleting the song");
     }
   };
 
@@ -38,32 +54,35 @@ const ListSong = () => {
       <p>All Song List</p>
       <br />
       <div>
-        <div className="sm:grid hidden grid-cols-[0.5fr_1fr_2fr_1fr_0.5fr] items-center gap-2.5 p-3 border border-gray-300 text-sm mr-5 bg-gray-100">
+        <div className="sm:grid hidden grid-cols-[0.5fr_1fr_2fr_1fr_0.5fr] items-center gap-3 p-2 border border-gray-300 text-sm mr-5 bg-gray-100">
           <b>Image</b>
           <b>Name</b>
           <b>Album</b>
           <b>Duration</b>
           <b>Action</b>
         </div>
-        {data.map((item, index) => {
-          return (
+        {data.length > 0 ? (
+          data.map((item, index) => (
             <div
               key={index}
-              className="grid grid-cols-[1fr_1fr_1fr] items-center gap-2.5 p-3 border border-gray-300 text-sm mr-5"
+              className="grid grid-cols-[1fr_1fr_1fr] sm:grid-cols-[0.5fr_1fr_2fr_1fr_0.5fr] items-center gap-2.5 p-3 border border-gray-300 text-sm mr-5"
             >
-              <img className="w-12" src={item.image} alt="" />
-              <p>{item.name}</p>
+              <img
+                className="w-12"
+                src={`http://localhost:4000/${item.image_url}`}
+                alt={item.title}
+              />
+              <p>{item.title}</p>
               <p>{item.album}</p>
-              <p>{item.duration}</p>
-              <p
-                onClick={() => removeSong(item._id)}
-                className="cursor-pointer"
-              >
+              <p>{item.duration || "Unknown Duration"}</p>
+              <p onClick={() => removeSong(item.id)} className="cursor-pointer">
                 x
               </p>
             </div>
-          );
-        })}
+          ))
+        ) : (
+          <p>No songs found</p>
+        )}
       </div>
     </div>
   );

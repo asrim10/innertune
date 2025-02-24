@@ -1,9 +1,7 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { assets } from "../assets/assets";
 import axios from "axios";
-import { url } from "../App";
 import { toast } from "react-toastify";
-import { useEffect } from "react";
 
 const AddSong = () => {
   const [image, setImage] = useState(false);
@@ -21,11 +19,14 @@ const AddSong = () => {
       const formData = new FormData();
       formData.append("image", image);
       formData.append("audio", song);
-      formData.append("name", name);
+      formData.append("title", name);
       formData.append("description", description);
       formData.append("album", album);
 
-      // const res = await axios.post(`${url} / api / song / add`, formData);
+      const res = await axios.post(
+        `http://localhost:4000/api/song/add`,
+        formData
+      );
 
       if (res.data.success) {
         toast.success("Song added successfully");
@@ -38,27 +39,34 @@ const AddSong = () => {
         toast.error("Failed to add song");
       }
     } catch (error) {
-      toast.error("Error occured");
+      toast.error("Error occurred while adding song");
     }
     setLoading(false);
   };
 
   const loadAlbumData = async () => {
     try {
-      const res = await axios.get(`${url}/api/album/list`);
-      if (res.data.success) {
+      const res = await axios.get(`http://localhost:4000/api/album/list`);
+      console.log("Album List Response:", res.data); // Debugging log
+
+      if (res.data.albums) {
         setAlbumData(res.data.albums);
       } else {
-        toast.error("Failed to fetch albums");
+        toast.error("No albums found");
       }
     } catch (error) {
-      toast.error("Error occured");
+      console.error("Error fetching albums:", error);
+      toast.error("Error occurred while fetching albums");
     }
   };
 
   useEffect(() => {
     loadAlbumData();
   }, []);
+
+  useEffect(() => {
+    console.log("Updated albumData:", albumData); // Debugging log
+  }, [albumData]);
 
   return loading ? (
     <div className="grid place-items-center min-h-[80vh]">
@@ -133,15 +141,19 @@ const AddSong = () => {
         <p>Album</p>
         <select
           onChange={(e) => setAlbum(e.target.value)}
-          defaultValue={album}
+          value={album}
           className="bg-transparent outline-green-600 border-gray-400 p-2.5 w-[150px]"
         >
           <option value="none">None</option>
-          {albumData.map((item, index) => (
-            <option value={item.name} key={index}>
-              {item.name}
-            </option>
-          ))}
+          {albumData.length > 0 ? (
+            albumData.map((item) => (
+              <option key={item.id} value={item.id}>
+                {item.name}
+              </option>
+            ))
+          ) : (
+            <option disabled>No Albums Found</option>
+          )}
         </select>
       </div>
 
