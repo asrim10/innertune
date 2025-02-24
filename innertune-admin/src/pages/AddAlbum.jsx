@@ -1,8 +1,10 @@
 import React, { useState } from "react";
+import axios from "axios";
+import { toast } from "react-toastify";
 import { assets } from "../assets/assets";
 
 const AddAlbum = () => {
-  const [image, setImage] = useState(false);
+  const [image, setImage] = useState(null);
   const [color, setColor] = useState("#000000");
   const [name, setName] = useState("");
   const [description, setDescription] = useState("");
@@ -14,23 +16,29 @@ const AddAlbum = () => {
     try {
       const formData = new FormData();
       formData.append("image", image);
-      formData.append("bgcolor", color);
+      formData.append("bgColor", color);
       formData.append("name", name);
-      formData.append("desc", description);
+      formData.append("description", description);
 
-      // const res = await axios.post(`${url}/api/album/add`, formData);
+      const res = await axios.post(
+        `http://localhost:4000/api/album/add`,
+        formData
+      );
+
+      console.log("Response:", res.data); // Log the response data
 
       if (res.data.success) {
-        // toast.success("Album added successfully");
-        setImage(false);
+        toast.success("Album added successfully");
+        setImage(null);
         setColor("#000000");
         setName("");
         setDescription("");
       } else {
-        // toast.error("Failed to add album");
+        toast.error("Failed to add album");
       }
     } catch (error) {
-      // toast.error("Error occured");
+      console.error("Error occurred:", error);
+      toast.error("Error occurred");
     }
     setLoading(false);
   };

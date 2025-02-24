@@ -6,6 +6,6 @@ const albumRouter = express.Router();
 
 albumRouter.post('/add', upload.single('image'), addAlbum);
 albumRouter.get('/list', listAlbums);
-albumRouter.post('/delete', removeAlbum);
+albumRouter.post("/delete", removeAlbum);
 
 export default albumRouter;
