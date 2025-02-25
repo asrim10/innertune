@@ -1,5 +1,5 @@
 import React, { useContext, useState } from "react";
-import { assets } from "../assets/frontend-assets/assets";
+import { assets } from "../assets/frontend-assets/assets"; // Make sure your green shuffle icon is in assets
 import { PlayerContext } from "../context/PlayerContext";
 
 const Player = () => {
@@ -15,10 +15,13 @@ const Player = () => {
     next,
     seekSong,
     audioRef, // Get audio reference from context
+    songsData, // Assuming you have a list of songs available
+    playWithId, // Function to play song by ID
   } = useContext(PlayerContext);
 
   const [volume, setVolume] = useState(1); // Default volume 100%
   const [isMuted, setIsMuted] = useState(false);
+  const [isShuffled, setIsShuffled] = useState(false); // Track shuffle status
 
   // Handle volume change
   const changeVolume = (e) => {
@@ -41,6 +44,21 @@ const Player = () => {
     }
   };
 
+  // Toggle shuffle and randomize song
+  const toggleShuffle = () => {
+    setIsShuffled(!isShuffled);
+    if (!isShuffled) {
+      playRandomSong(); // Play a random song when shuffle is on
+    }
+  };
+
+  // Shuffle play a random song
+  const playRandomSong = () => {
+    const randomIndex = Math.floor(Math.random() * songsData.length);
+    const randomSong = songsData[randomIndex];
+    playWithId(randomSong.id); // Play the random song by its ID
+  };
+
   return track ? (
     <div className="h-[10%] bg-black flex justify-between items-center text-white px-4">
       <div className="hidden lg:flex items-center gap-4 ">
@@ -53,8 +71,9 @@ const Player = () => {
       <div className="flex flex-col items-center gap-1 m-auto">
         <div className="flex gap-4">
           <img
+            onClick={toggleShuffle}
             className="w-4 cursor-pointer"
-            src={assets.shuffle_icon}
+            src={isShuffled ? assets.green_icon : assets.shuffle_icon} // Switch between normal and green shuffle
             alt="shuffle"
           />
           <img
