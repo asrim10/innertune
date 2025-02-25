@@ -3,6 +3,8 @@ import { LandingNavbar } from "./LandingNavbar"; // Import LandingNavbar compone
 import LandingHero from "./LandingHero";
 import LandingFeatures from "./LandingFeatures";
 import LandingWorkFLow from "./LandingWorkFLow";
+import LandingTestimonial from "./LandingTestimonial";
+import LandingFooter from "./LandingFooter";
 
 const LandingPage = () => {
   return (
@@ -12,6 +14,8 @@ const LandingPage = () => {
         <LandingHero />
         <LandingFeatures />
         <LandingWorkFLow />
+        <LandingTestimonial />
+        <LandingFooter />
       </div>
     </div>
   );

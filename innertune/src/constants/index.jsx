@@ -20,39 +20,21 @@ export const navItems = [
 export const testimonials = [
   {
     user: "John Doe",
-    company: "Stellar Solutions",
+    company: "A Partime job worker",
     image: user1,
-    text: "I am extremely satisfied with the services provided. The team was responsive, professional, and delivered results beyond my expectations.",
+    text: "The platform's design and features have been praised for their ease of use. A reviewer mentioned, It's fast, cheap, and easy to use. I never had any trouble with the app, and the sound quality is good.",
   },
   {
     user: "Jane Smith",
-    company: "Blue Horizon Technologies",
+    company: "CEO",
     image: user2,
-    text: "I couldn't be happier with the outcome of our project. The team's creativity and problem-solving skills were instrumental in bringing our vision to life",
-  },
-  {
-    user: "David Johnson",
-    company: "Quantum Innovations",
-    image: user3,
-    text: "Working with this company was a pleasure. Their attention to detail and commitment to excellence are commendable. I would highly recommend them to anyone looking for top-notch service.",
+    text: "Spotify's social aspects, such as collaborative playlists and sharing options, have been highlighted positively. A user shared, I love creating playlists and the small social aspects of it.",
   },
   {
     user: "Ronee Brown",
-    company: "Fusion Dynamics",
+    company: "Innertune user",
     image: user4,
-    text: "Working with the team at XYZ Company was a game-changer for our project. Their attention to detail and innovative solutions helped us achieve our goals faster than we thought possible. We are grateful for their expertise and professionalism!",
-  },
-  {
-    user: "Michael Wilson",
-    company: "Visionary Creations",
-    image: user5,
-    text: "I am amazed by the level of professionalism and dedication shown by the team. They were able to exceed our expectations and deliver outstanding results.",
-  },
-  {
-    user: "Emily Davis",
-    company: "Synergy Systems",
-    image: user6,
-    text: "The team went above and beyond to ensure our project was a success. Their expertise and dedication are unmatched. I look forward to working with them again in the future.",
+    text: "Spotify's model is effective in providing familiar music that users enjoy, but it lacks the excitement of authentic discovery.",
   },
 ];
 
@@ -124,10 +106,9 @@ export const pricingOptions = [
 
 export const resourcesLinks = [
   { href: "#", text: "Getting Started" },
-  { href: "#", text: "Documentation" },
+  { href: "#", text: "Artists" },
   { href: "#", text: "Tutorials" },
   { href: "#", text: "API Reference" },
-  { href: "#", text: "Community Forums" },
 ];
 
 export const platformLinks = [
@@ -140,8 +121,7 @@ export const platformLinks = [
 
 export const communityLinks = [
   { href: "#", text: "Events" },
-  { href: "#", text: "Meetups" },
-  { href: "#", text: "Conferences" },
-  { href: "#", text: "Hackathons" },
-  { href: "#", text: "Jobs" },
+  { href: "#", text: "Concerts" },
+  { href: "#", text: "Karaoke" },
+  { href: "#", text: "GGs" },
 ];
