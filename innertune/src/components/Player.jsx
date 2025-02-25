@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext, useState } from "react";
 import { assets } from "../assets/frontend-assets/assets";
 import { PlayerContext } from "../context/PlayerContext";
 
@@ -14,18 +14,39 @@ const Player = () => {
     previous,
     next,
     seekSong,
+    audioRef, // Get audio reference from context
   } = useContext(PlayerContext);
 
-  // Log track to check its structure
-  console.log(track);
+  const [volume, setVolume] = useState(1); // Default volume 100%
+  const [isMuted, setIsMuted] = useState(false);
+
+  // Handle volume change
+  const changeVolume = (e) => {
+    const newVolume = e.target.value;
+    setVolume(newVolume);
+    if (audioRef.current) {
+      audioRef.current.volume = newVolume;
+    }
+  };
+
+  // Toggle mute/unmute
+  const toggleMute = () => {
+    if (audioRef.current) {
+      if (isMuted) {
+        audioRef.current.volume = volume; // Restore previous volume
+      } else {
+        audioRef.current.volume = 0;
+      }
+      setIsMuted(!isMuted);
+    }
+  };
 
   return track ? (
     <div className="h-[10%] bg-black flex justify-between items-center text-white px-4">
       <div className="hidden lg:flex items-center gap-4 ">
-        {/* Add optional chaining to avoid errors */}
-        <img className="w-12" src={track?.image || ""} alt="" />
+        <img className="w-12" src={track?.image_url || ""} alt="" />
         <div>
-          <p>{track?.name || "Unknown Track"}</p>
+          <p>{track?.title || "Unknown Track"}</p>
           <p>{track?.desc?.slice(0, 12) || "No Description"}</p>
         </div>
       </div>
@@ -57,7 +78,6 @@ const Player = () => {
               alt="play"
             />
           )}
-
           <img
             onClick={next}
             className="w-4 cursor-pointer"
@@ -89,13 +109,33 @@ const Player = () => {
           </p>
         </div>
       </div>
+
+      {/* Volume Control */}
       <div className="hidden lg:flex items-center gap-2 opacity-75">
         <img className="w-4" src={assets.plays_icon} alt="plays" />
         <img className="w-4" src={assets.mic_icon} alt="mic" />
         <img className="w-4" src={assets.queue_icon} alt="queue" />
         <img className="w-4" src={assets.speaker_icon} alt="speaker" />
-        <img className="w-4" src={assets.volume_icon} alt="volume" />
-        <div className="w-20 bg-slate-50 h-1 rounded"></div>
+
+        {/* Volume Icon - Mute/Unmute */}
+        <img
+          className="w-4 cursor-pointer"
+          src={isMuted ? lucid : assets.volume_icon}
+          alt="volume"
+          onClick={toggleMute}
+        />
+
+        {/* Volume Slider */}
+        <input
+          type="range"
+          min="0"
+          max="1"
+          step="0.01"
+          value={volume}
+          onChange={changeVolume}
+          className="w-20 h-1 rounded-lg bg-green-700 appearance-none cursor-pointer"
+        />
+
         <img className="w-4" src={assets.mini_player_icon} alt="mini player" />
         <img className="w-4" src={assets.zoom_icon} alt="zoom" />
       </div>

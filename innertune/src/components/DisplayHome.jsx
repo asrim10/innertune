@@ -20,7 +20,7 @@ const DisplayHome = () => {
               name={item.name}
               desc={item.description}
               id={item.id}
-              image={`/uploads/${item.image}`}
+              image={item.image}
             />
           ))}
         </div>
