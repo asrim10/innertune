@@ -39,7 +39,6 @@ const Navbar = () => {
           All
         </p>
         <p className="bg-black px-4 py-1 rounded-2xl cursor-pointer">Music</p>
-        <p className="bg-black px-4 py-1 rounded-2xl cursor-pointer">Podcast</p>
       </div>
     </>
   );
