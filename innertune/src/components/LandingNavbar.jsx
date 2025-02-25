@@ -1,5 +1,5 @@
 import React from "react";
-import { assets } from "../assets/frontend-assets/assets";
+import logo from "../assets/logo.png";
 import { navItems } from "../constants";
 import { Menu, X } from "lucide-react";
 import { useState } from "react";
@@ -16,11 +16,7 @@ export const LandingNavbar = () => {
       <div className="container px-4 mx-auto relative tx-sm">
         <div className="flex justify-between items-center">
           <div className="flex-items-center flex-shrink-0">
-            <img
-              src={assets.spotify_logo}
-              alt="logo"
-              className="h-10 w-10 mr-2"
-            />
+            <img src={logo} alt="logo" className="h-10 w-10 mr-2" />
             <span className="text-xl tracking-tight">Innertune</span>
           </div>
           <ul className="hidden lg:flex ml-14 space-x-12">

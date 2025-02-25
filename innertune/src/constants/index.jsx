@@ -1,9 +1,7 @@
-import { BotMessageSquare } from "lucide-react";
-import { BatteryCharging } from "lucide-react";
-import { Fingerprint } from "lucide-react";
-import { ShieldHalf } from "lucide-react";
-import { PlugZap } from "lucide-react";
-import { GlobeLock } from "lucide-react";
+import { Music } from "lucide-react";
+import { Repeat1Icon } from "lucide-react";
+import { Headphones } from "lucide-react";
+import { SpeakerIcon } from "lucide-react";
 
 import user1 from "../assets/profile-pictures/user1.jpg";
 import user2 from "../assets/profile-pictures/user2.jpg";
@@ -60,63 +58,34 @@ export const testimonials = [
 
 export const features = [
   {
-    icon: <BotMessageSquare />,
-    text: "Drag-and-Drop Interface",
-    description:
-      "Easily design and arrange your VR environments with a user-friendly drag-and-drop interface.",
+    icon: <Headphones />,
+    text: "Listen-to-your-own-music",
+    description: "You can easily listen What you want",
   },
   {
-    icon: <Fingerprint />,
-    text: "Multi-Platform Compatibility",
+    icon: <SpeakerIcon />,
+    text: "High-Quality Audio Streaming",
     description:
-      "Build VR applications that run seamlessly across multiple platforms, including mobile, desktop, and VR headsets.",
+      "Different streaming quality options (Low, Normal, High, and Very High for Premium users)",
   },
   {
-    icon: <ShieldHalf />,
-    text: "Built-in Templates",
+    icon: <Repeat1Icon />,
+    text: " Personalized Playlists & Recommendations",
     description:
-      "Jumpstart your VR projects with a variety of built-in templates for different types of applications and environments.",
+      "A curated playlist based on your listening habits. You can also create your own playlists.",
   },
   {
-    icon: <BatteryCharging />,
-    text: "Real-Time Preview",
-    description:
-      "Preview your VR application in real-time as you make changes, allowing for quick iterations and adjustments.",
-  },
-  {
-    icon: <PlugZap />,
-    text: "Collaboration Tools",
-    description:
-      "Work together with your team in real-time on VR projects, enabling seamless collaboration and idea sharing.",
-  },
-  {
-    icon: <GlobeLock />,
-    text: "Analytics Dashboard",
-    description:
-      "Gain valuable insights into user interactions and behavior within your VR applications with an integrated analytics dashboard.",
+    icon: <Music />,
+    text: "Music Streaming",
+    description: "Access to millions of songs from various artists and genres.",
   },
 ];
 
 export const checklistItems = [
   {
-    title: "Code merge made easy",
+    title: "Easy access to your favourites",
     description:
-      "Track the performance of your VR apps and gain insights into user behavior.",
-  },
-  {
-    title: "Review code without worry",
-    description:
-      "Track the performance of your VR apps and gain insights into user behavior.",
-  },
-  {
-    title: "AI Assistance to reduce time",
-    description:
-      "Track the performance of your VR apps and gain insights into user behavior.",
-  },
-  {
-    title: "Share work in minutes",
-    description:
-      "Track the performance of your VR apps and gain insights into user behavior.",
+      "Hey, music lovers! Looking for the perfect snack to enjoy with your tunes?",
   },
 ];
 
