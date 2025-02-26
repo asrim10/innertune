@@ -7,6 +7,7 @@ import { PlayerContext } from "./context/PlayerContext";
 import LandingPage from "./components/LandingPage";
 import Login from "./components/Login";
 import Signup from "./components/SignupPage";
+import DisplayHome from "./components/DisplayHome";
 
 const App = () => {
   const { audioRef, track, songsData } = useContext(PlayerContext);
@@ -21,6 +22,7 @@ const App = () => {
       <Routes>
         <Route path="/login" element={<Login />} />
         <Route path="/signup" element={<Signup />} />
+        <Route path="/displayhome" element={<DisplayHome />} /> {/* Add this */}
         <Route
           path="/"
           element={

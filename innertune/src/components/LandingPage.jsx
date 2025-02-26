@@ -1,5 +1,5 @@
 import React from "react";
-import { LandingNavbar } from "./LandingNavbar"; // Import LandingNavbar component
+import { LandingNavbar } from "./LandingNavbar";
 import LandingHero from "./LandingHero";
 import LandingFeatures from "./LandingFeatures";
 import LandingWorkFLow from "./LandingWorkFLow";

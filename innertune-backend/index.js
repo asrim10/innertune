@@ -6,6 +6,8 @@ import albumRouter from './src/routes/albumRoutes.js';
 import { Connection } from './src/database/db.js';
 import { createUploadsFolder } from './security/helper.js'; 
 import uploadRoutes from './src/routes/uploadRoutes.js';
+import userRouter from "./src/routes/userRoutes.js"
+import authRouter from './src/routes/authRoutes.js';
 
 
 // app config
@@ -20,6 +22,8 @@ app.use("/uploads", express.static("uploads")); // Serve static files from the "
 createUploadsFolder();
 
 // initializing routes
+app.use("/api/auth",authRouter)
+app.use("/api/user",userRouter)
 app.use("/api/song", songRouter)
 app.use("/api/album", albumRouter)
 app.use("/api/file", uploadRoutes)
