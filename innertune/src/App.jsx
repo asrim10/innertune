@@ -6,6 +6,7 @@ import Display from "./components/Display";
 import { PlayerContext } from "./context/PlayerContext";
 import LandingPage from "./components/LandingPage";
 import Login from "./components/Login";
+import Signup from "./components/SignupPage";
 
 const App = () => {
   const { audioRef, track, songsData } = useContext(PlayerContext);
@@ -19,6 +20,7 @@ const App = () => {
     <div className="h-screen bg-black w-full">
       <Routes>
         <Route path="/login" element={<Login />} />
+        <Route path="/signup" element={<Signup />} />
         <Route
           path="/"
           element={
