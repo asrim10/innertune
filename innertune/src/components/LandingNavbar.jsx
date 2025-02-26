@@ -1,8 +1,8 @@
-import React from "react";
+import React, { useState } from "react";
+import { Link } from "react-router-dom"; // Use Link for navigation
 import logo from "../assets/logo.png";
 import { navItems } from "../constants";
 import { Menu, X } from "lucide-react";
-import { useState } from "react";
 
 export const LandingNavbar = () => {
   const [mobileDrawer, setMobileDrawerOpen] = useState(false);
@@ -22,19 +22,19 @@ export const LandingNavbar = () => {
           <ul className="hidden lg:flex ml-14 space-x-12">
             {navItems.map((item, index) => (
               <li key={index}>
-                <a href={item.href} className="text-white hover:text-gray-400">
+                <Link to={item.href} className="text-white hover:text-gray-400">
                   {item.label}
-                </a>
+                </Link>
               </li>
             ))}
           </ul>
           <div className="hidden lg:flex justify-center items-center space-x-12">
-            <a href="#" className="py-2 px-3 border rounded-md">
+            <Link to="/login" className="py-2 px-3 border rounded-md">
               Log In
-            </a>
+            </Link>
             <a
               href="#"
-              className="bg-gradiant-to-r from-orange-400 to-orange-600 py-2 px-3 rounded-md"
+              className="bg-gradient-to-r from-orange-400 to-orange-600 py-2 px-3 rounded-md"
             >
               Create an account
             </a>
@@ -46,23 +46,23 @@ export const LandingNavbar = () => {
           </div>
         </div>
         {mobileDrawer && (
-          <div className="fixed right-0 z-20 bg-neutral900 w-full p-12 flex flex-col justigy-center items-center lg:hidden">
+          <div className="fixed right-0 z-20 bg-neutral900 w-full p-12 flex flex-col justify-center items-center lg:hidden">
             <ul>
               {navItems.map((item, index) => (
                 <li key={index} className="py-4">
-                  <a
-                    href={item.href}
+                  <Link
+                    to={item.href}
                     className="text-white hover:text-gray-400"
                   >
                     {item.label}
-                  </a>
+                  </Link>
                 </li>
               ))}
             </ul>
             <div className="flex space-x-6">
-              <a href="#" className="py-2 px-3 border rounded-md">
+              <Link to="/login" className="py-2 px-3 border rounded-md">
                 Log In
-              </a>
+              </Link>
               <a
                 href="#"
                 className="py-2 rounded-md bg-gradient-to-r from-orange-400 to-orange-600"
