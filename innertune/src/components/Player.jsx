@@ -1,5 +1,5 @@
 import React, { useContext, useState } from "react";
-import { assets } from "../assets/frontend-assets/assets"; // Make sure your green shuffle icon is in assets
+import { assets } from "../assets/frontend-assets/assets";
 import { PlayerContext } from "../context/PlayerContext";
 
 const Player = () => {
@@ -14,16 +14,15 @@ const Player = () => {
     previous,
     next,
     seekSong,
-    audioRef, // Get audio reference from context
-    songsData, // Assuming you have a list of songs available
-    playWithId, // Function to play song by ID
+    audioRef,
+    songsData,
+    playWithId,
   } = useContext(PlayerContext);
 
-  const [volume, setVolume] = useState(1); // Default volume 100%
+  const [volume, setVolume] = useState(1);
   const [isMuted, setIsMuted] = useState(false);
-  const [isShuffled, setIsShuffled] = useState(false); // Track shuffle status
+  const [isShuffled, setIsShuffled] = useState(false);
 
-  // Handle volume change
   const changeVolume = (e) => {
     const newVolume = e.target.value;
     setVolume(newVolume);
@@ -32,11 +31,10 @@ const Player = () => {
     }
   };
 
-  // Toggle mute/unmute
   const toggleMute = () => {
     if (audioRef.current) {
       if (isMuted) {
-        audioRef.current.volume = volume; // Restore previous volume
+        audioRef.current.volume = volume;
       } else {
         audioRef.current.volume = 0;
       }
@@ -44,24 +42,22 @@ const Player = () => {
     }
   };
 
-  // Toggle shuffle and randomize song
   const toggleShuffle = () => {
     setIsShuffled(!isShuffled);
     if (!isShuffled) {
-      playRandomSong(); // Play a random song when shuffle is on
+      playRandomSong();
     }
   };
 
-  // Shuffle play a random song
   const playRandomSong = () => {
     const randomIndex = Math.floor(Math.random() * songsData.length);
     const randomSong = songsData[randomIndex];
-    playWithId(randomSong.id); // Play the random song by its ID
+    playWithId(randomSong.id);
   };
 
   return track ? (
-    <div className="h-[10%] bg-black flex justify-between items-center text-white px-4">
-      <div className="hidden lg:flex items-center gap-4 ">
+    <div className="fixed bottom-0 left-0 w-full h-[10%] bg-black flex justify-between items-center text-white px-4 z-50">
+      <div className="hidden lg:flex items-center gap-4">
         <img className="w-12" src={track?.image_url || ""} alt="" />
         <div>
           <p>{track?.title || "Unknown Track"}</p>
@@ -73,7 +69,7 @@ const Player = () => {
           <img
             onClick={toggleShuffle}
             className="w-4 cursor-pointer"
-            src={isShuffled ? assets.green_icon : assets.shuffle_icon} // Switch between normal and green shuffle
+            src={isShuffled ? assets.green_icon : assets.shuffle_icon}
             alt="shuffle"
           />
           <img
@@ -136,10 +132,10 @@ const Player = () => {
         <img className="w-4" src={assets.queue_icon} alt="queue" />
         <img className="w-4" src={assets.speaker_icon} alt="speaker" />
 
-        {/* Volume Icon - Mute/Unmute */}
+        {/* Mute/Unmute */}
         <img
           className="w-4 cursor-pointer"
-          src={isMuted ? lucid : assets.volume_icon}
+          src={isMuted ? assets.mute_icon : assets.volume_icon}
           alt="volume"
           onClick={toggleMute}
         />

@@ -46,7 +46,7 @@ export const LandingNavbar = () => {
           </div>
         </div>
         {mobileDrawer && (
-          <div className="fixed right-0 z-20 bg-neutral900 w-full p-12 flex flex-col justify-center items-center lg:hidden">
+          <div className="fixed right-0 z-20 bg-neutral-900 w-full p-12 flex flex-col justify-center items-center lg:hidden">
             <ul>
               {navItems.map((item, index) => (
                 <li key={index} className="py-4">

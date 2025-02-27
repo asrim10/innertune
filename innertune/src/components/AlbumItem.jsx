@@ -3,16 +3,19 @@ import { useNavigate } from "react-router-dom";
 
 const AlbumItem = ({ image, name, desc, id }) => {
   const navigate = useNavigate();
+
   return (
     <div
       onClick={() => navigate(`/album/${id}`)}
-      className="min-w-[180px] p-2 px-3 round cursor-pointer hover:bg-[#ffffff26]"
+      className="min-w-[180px] p-2 px-3 rounded cursor-pointer hover:bg-[#ffffff26]"
     >
+      {/* Fixed the src attribute and properly handled image path */}
       <img
-        className="rounded "
-        image={`http://localhost:4000/${image.replace(/^uploads\//, "")}`}
-        alt=""
+        className="rounded w-full h-auto"
+        src={`http://localhost:4000${image}`} // Remove `replace(/^uploads\//, "")`
+        alt={name}
       />
+
       <p className="font-bold mt-2 mb-1">{name}</p>
       <p className="text-slate-200 text-sm">{desc}</p>
     </div>

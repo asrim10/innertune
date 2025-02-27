@@ -3,11 +3,10 @@ import axios from "axios";
 
 export const PlayerContext = createContext();
 
-const PlayerContextProvider = (props) => {
+const PlayerContextProvider = ({ children }) => {
   const audioRef = useRef();
   const seekBg = useRef();
   const seekBar = useRef();
-
   const url = "http://localhost:4000";
 
   const [songsData, setSongsData] = useState([]);
@@ -34,19 +33,18 @@ const PlayerContextProvider = (props) => {
     }
   };
 
-  const playWithId = async (id) => {
+  const playWithId = (id) => {
     const index = songsData.findIndex((song) => song.id === id);
     if (index === -1) return;
 
     if (track && track.id === id) {
-      // If the same song is clicked again, reset to start
-      if (audioRef.current) {
-        audioRef.current.currentTime = 0; // Restart song from beginning
-        audioRef.current.play();
-        setPlayStatus(true);
+      // If same song is clicked, toggle play/pause
+      if (audioRef.current.paused) {
+        play();
+      } else {
+        pause();
       }
     } else {
-      // Change to new song
       setCurrentTrackIndex(index);
       setTrack(songsData[index]);
     }
@@ -54,30 +52,26 @@ const PlayerContextProvider = (props) => {
 
   const previous = () => {
     if (currentTrackIndex > 0) {
-      const newIndex = currentTrackIndex - 1;
-      setCurrentTrackIndex(newIndex);
-      setTrack(songsData[newIndex]);
+      setCurrentTrackIndex((prev) => prev - 1);
+      setTrack(songsData[currentTrackIndex - 1]);
     }
   };
 
   const next = () => {
     if (currentTrackIndex < songsData.length - 1) {
-      const newIndex = currentTrackIndex + 1;
-      setCurrentTrackIndex(newIndex);
-      setTrack(songsData[newIndex]);
+      setCurrentTrackIndex((prev) => prev + 1);
+      setTrack(songsData[currentTrackIndex + 1]);
     }
   };
 
-  // Automatically update audio when track changes
   useEffect(() => {
     if (track && audioRef.current) {
       const audioUrl = `${url}/${track.audio_url.replace(/^uploads\//, "")}`;
       audioRef.current.src = audioUrl;
       audioRef.current.load();
-      audioRef.current.play();
-      setPlayStatus(true);
+      play();
     }
-  }, [track]); // Runs whenever track updates
+  }, [track]);
 
   const seekSong = (e) => {
     if (audioRef.current && audioRef.current.duration) {
@@ -92,13 +86,9 @@ const PlayerContextProvider = (props) => {
       const response = await axios.get(`${url}/api/song/list`);
       if (Array.isArray(response.data) && response.data.length > 0) {
         setSongsData(response.data);
-        setTrack(response.data[0]); // Set first song as default
-        setCurrentTrackIndex(0);
-      } else {
-        console.error(
-          "No songs data found or invalid response:",
-          response.data
-        );
+        if (!track) {
+          setCurrentTrackIndex(0); // Set index, but don't auto-set track
+        }
       }
     } catch (error) {
       console.error("Error fetching songs:", error);
@@ -110,8 +100,6 @@ const PlayerContextProvider = (props) => {
       const response = await axios.get(`${url}/api/album/list`);
       if (response.data && Array.isArray(response.data.albums)) {
         setAlbumsData(response.data.albums);
-      } else {
-        console.error("Invalid album data:", response.data);
       }
     } catch (error) {
       console.error("Error fetching albums:", error);
@@ -123,9 +111,8 @@ const PlayerContextProvider = (props) => {
       audioRef.current.ontimeupdate = () => {
         if (audioRef.current.duration) {
           seekBar.current.style.width =
-            Math.floor(
-              (audioRef.current.currentTime / audioRef.current.duration) * 100
-            ) + "%";
+            (audioRef.current.currentTime / audioRef.current.duration) * 100 +
+            "%";
 
           setTime({
             currentTime: {
@@ -147,31 +134,26 @@ const PlayerContextProvider = (props) => {
     getAlbumData();
   }, []);
 
-  const contextValue = {
-    audioRef,
-    seekBar,
-    seekBg,
-    track,
-    setTrack,
-    currentTrackIndex,
-    setCurrentTrackIndex,
-    playStatus,
-    setPlayStatus,
-    time,
-    setTime,
-    play,
-    pause,
-    playWithId,
-    previous,
-    next,
-    seekSong,
-    songsData,
-    albumsData,
-  };
-
   return (
-    <PlayerContext.Provider value={contextValue}>
-      {props.children}
+    <PlayerContext.Provider
+      value={{
+        audioRef,
+        seekBar,
+        seekBg,
+        track,
+        playStatus,
+        time,
+        play,
+        pause,
+        playWithId,
+        previous,
+        next,
+        seekSong,
+        songsData,
+        albumsData,
+      }}
+    >
+      {children}
     </PlayerContext.Provider>
   );
 };
