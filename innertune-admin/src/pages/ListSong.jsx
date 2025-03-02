@@ -67,11 +67,8 @@ const ListSong = () => {
               key={index}
               className="grid grid-cols-[1fr_1fr_1fr] sm:grid-cols-[0.5fr_1fr_2fr_1fr_0.5fr] items-center gap-2.5 p-3 border border-gray-300 text-sm mr-5"
             >
-              <img
-                className="w-12"
-                src={`http://localhost:4000/${item.image_url}`}
-                alt={item.title}
-              />
+              <img className="w-12" src={item.image_url} alt={item.title} />
+
               <p>{item.title}</p>
               <p>{item.album}</p>
               <p>{item.duration || "Unknown Duration"}</p>
