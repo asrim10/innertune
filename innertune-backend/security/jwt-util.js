@@ -2,12 +2,14 @@ import jwt from "jsonwebtoken";
 import dotenv from 'dotenv';
 dotenv.config();
 
-const generateToken = (payload) => {
-
-    const options = {
-        expiresIn: process.env.expiresIn, // Token expiration time
-    };
-    return jwt.sign(payload, process.env.secretkey, options);
+const generateToken = (user) => {
+  return jwt.sign(
+    { userId: user.userId, username: user.username }, // payload data
+    process.env.secretkey, // secret key from .env
+    { expiresIn: process.env.expiresIn } // Optional: Expiry time for token
+  );
 };
 
-export default generateToken
+export default generateToken;
+
+

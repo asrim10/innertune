@@ -1,7 +1,8 @@
-import { DataTypes } from "sequelize";
-import sequelize from "../database/db.js";
+import bcrypt from 'bcrypt';
+import { DataTypes } from 'sequelize';
+import sequelize from '../database/db.js';
 
-const Users = sequelize.define("users", {
+const Users = sequelize.define('users', {
   userId: {
     type: DataTypes.INTEGER,
     autoIncrement: true,
@@ -17,26 +18,28 @@ const Users = sequelize.define("users", {
     allowNull: false,
     unique: true,
   },
-
   password: {
     type: DataTypes.STRING,
     allowNull: false,
   },
-
   role: {
-    type: DataTypes.ENUM("user", "artist"),
+    type: DataTypes.ENUM('user', 'artist', 'admin'),
     allowNull: false,
-    defaultValue: "user",
+    defaultValue: 'user',
+  },
+}, {
+  hooks: {
+    beforeCreate: async (user) => {
+      if (user.password) {
+        user.password = await bcrypt.hash(user.password, 10); // Hash password before saving
+      }
+    },
+    beforeUpdate: async (user) => {
+      if (user.password) {
+        user.password = await bcrypt.hash(user.password, 10); // Hash password before saving
+      }
+    },
   },
 });
-
-(async () => {
-  try {
-    await Users.sync();
-    console.log("User table has been created");
-  } catch (error) {
-    console.log("Error: ", error.message);
-  }
-})();
 
 export default Users;

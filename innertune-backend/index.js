@@ -8,6 +8,7 @@ import { createUploadsFolder } from './security/helper.js';
 import uploadRoutes from './src/routes/uploadRoutes.js';
 import userRouter from "./src/routes/userRoutes.js"
 import authRouter from './src/routes/authRoutes.js';
+import playlistRouter from './src/routes/playlistRoutes.js';
 
 
 // app config
@@ -26,6 +27,7 @@ app.use("/api/auth",authRouter)
 app.use("/api/user",userRouter)
 app.use("/api/song", songRouter)
 app.use("/api/album", albumRouter)
+app.use("/api/playlist",playlistRouter)
 app.use("/api/file", uploadRoutes)
 app.get('/',(req,res)=>{
     res.send('API working');

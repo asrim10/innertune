@@ -36,8 +36,10 @@ const Login = () => {
         // Redirect based on role
         if (role === "user") {
           navigate("/displayhome");
+        } else if (role === "artist") {
+          navigate("/artistpanel");
         } else if (role === "admin") {
-          navigate("/Artistpanel");
+          navigate("/adminpane");
         }
       } else {
         alert("Login failed! Check credentials.");

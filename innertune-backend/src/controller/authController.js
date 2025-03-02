@@ -1,5 +1,6 @@
 import generateToken from "../../security/jwt-util.js";
 import Users from "../model/userSchema.js";
+import bcrypt from "bcrypt";
 
 const login = async (req, res) => {
   try {
@@ -18,9 +19,11 @@ const login = async (req, res) => {
       return res.status(400).send({ message: "User not found" });
     }
 
-    // Check if password matches (assuming plaintext here, ideally use bcrypt)
-    if (user.password === password) {
-      const token = generateToken({ user: user.toJSON() });
+    // Compare the provided password with the hashed password in the database
+    const isPasswordValid = await bcrypt.compare(password, user.password);
+    if (isPasswordValid) {
+      // Generate a JWT token if password is correct
+      const token = generateToken({ userId: user.userId, username: user.username });
       return res.status(200).send({
         data: {
           access_token: token,

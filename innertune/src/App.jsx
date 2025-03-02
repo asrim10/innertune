@@ -8,6 +8,8 @@ import LandingPage from "./components/LandingPage";
 import Login from "./components/Login";
 import Signup from "./components/SignupPage";
 import DisplayHome from "./components/DisplayHome";
+import EditButton from "./components/Profile";
+import DisplayPlaylist from "./components/DisplayPlaylists";
 
 const App = () => {
   const { audioRef, track, songsData } = useContext(PlayerContext);
@@ -23,6 +25,9 @@ const App = () => {
         <Route path="/login" element={<Login />} />
         <Route path="/signup" element={<Signup />} />
         <Route path="/displayhome" element={<DisplayHome />} /> {/* Add this */}
+        <Route path="/profile" element={<EditButton />} /> {/* Add this */}
+        <Route path="/playlist" element={<DisplayPlaylist />} />{" "}
+        {/* Add this */}
         <Route
           path="/"
           element={
