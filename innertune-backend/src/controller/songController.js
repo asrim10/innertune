@@ -69,7 +69,7 @@ export const getAllSongs = async (req, res) => {
     const updatedSongs = songs.map((song) => ({
       ...song.dataValues,
       image_url: `http://localhost:4000/uploads/${song.image_url}`,
-      audio_url: `${BASE_URL}/uploads/${song.audio_url}`,
+      audio_url: `http://localhost:4000/uploads/${song.audio_url}`,
     }));
     res.json({ success: true, songs: updatedSongs });
   } catch (error) {

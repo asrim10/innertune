@@ -66,10 +66,22 @@ const PlayerContextProvider = ({ children }) => {
 
   useEffect(() => {
     if (track && audioRef.current) {
-      const audioUrl = `${url}/${track.audio_url.replace(/^uploads\//, "")}`;
+      let audioUrl = track.audio_url.startsWith("http")
+        ? track.audio_url // Already a full URL, use it directly
+        : `${url}/${track.audio_url.replace(/^uploads[\\/]/, "uploads/")}`; // Ensure correct format
+
+      console.log("Loading audio:", audioUrl); // Debugging output
+
       audioRef.current.src = audioUrl;
       audioRef.current.load();
-      play();
+
+      audioRef.current.oncanplaythrough = () => {
+        play();
+      };
+
+      audioRef.current.onerror = (e) => {
+        console.error("Audio failed to load", e, "URL:", audioUrl);
+      };
     }
   }, [track]);
 
