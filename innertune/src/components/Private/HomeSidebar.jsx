@@ -11,6 +11,10 @@ export const Sidebar = () => {
   const [playlistDesc, setPlaylistDesc] = useState("");
   const [playlistImage, setPlaylistImage] = useState(null);
 
+  const handleAddSongPage = () => {
+    navigate("/addsong"); // Navigate to /addsong route
+  };
+
   const handleCreatePlaylist = async (e) => {
     e.preventDefault(); // Prevent page reload on form submit
 
@@ -66,7 +70,7 @@ export const Sidebar = () => {
         <div className="h-[15%] rounded flex flex-col justify-around">
           <div
             onClick={() => {
-              navigate("/");
+              navigate("/displayhome");
               setShowSidebar(false);
             }}
             className="flex items-center gap-3 pl-8 cursor-pointer"
@@ -91,7 +95,7 @@ export const Sidebar = () => {
                 className="w-5 cursor-pointer"
                 src={assets.plus_icon}
                 alt="Add"
-                onClick={() => setShowModal(true)}
+                onClick={handleAddSongPage} // Call the handler
               />
             </div>
           </div>

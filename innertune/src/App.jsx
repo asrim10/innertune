@@ -14,6 +14,7 @@ import DisplayPlaylist from "./components/Private/DisplayPlaylists";
 import DisplayAlbum from "./components/Private/DisplayAlbum";
 import AdminDashboard from "./components/Private/AdminDashboard";
 import ProtectedRoute from "./ProtectedRoute";
+import AddSongToPlaylist from "./components/Private/AddSongToPLaylist";
 
 // Artist Pages
 import AddSong from "./pages/AddSong";
@@ -47,6 +48,7 @@ const App = () => {
           <Route path="/album/:id" element={<DisplayAlbum />} />
           <Route path="/profile" element={<EditButton />} />
           <Route path="/playlist" element={<DisplayPlaylist />} />
+          <Route path="/addsong" element={<AddSongToPlaylist />} />
         </Route>
 
         {/* Admin Routes */}
