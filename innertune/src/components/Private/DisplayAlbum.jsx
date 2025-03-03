@@ -1,6 +1,6 @@
 import React, { useContext, useEffect, useState } from "react";
-import Navbar from "../Navbar";
-import { Sidebar } from "../Sidebar";
+import Navbar from "../HomeNavbar";
+import { Sidebar } from "../HomeSidebar";
 import Player from "../Player";
 import { useParams } from "react-router-dom";
 import { assets } from "../../assets/frontend-assets/assets";

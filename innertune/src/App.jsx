@@ -1,6 +1,7 @@
 import React, { useState, useContext } from "react";
 import { Route, Routes } from "react-router-dom";
-import { Sidebar } from "./components/Sidebar";
+import { ToastContainer } from "react-toastify";
+import { Sidebar } from "./components/HomeSidebar";
 import Player from "./components/Player";
 import Display from "./components/Display";
 import { PlayerContext } from "./context/PlayerContext";
@@ -14,32 +15,57 @@ import DisplayAlbum from "./components/Private/DisplayAlbum";
 import AdminDashboard from "./components/Private/AdminDashboard";
 import ProtectedRoute from "./ProtectedRoute";
 
+// Artist Pages
+import AddSong from "./pages/AddSong";
+import AddAlbum from "./pages/AddAlbum";
+import Dashboard from "./pages/ArtistDashboard";
+import ListSong from "./pages/ListSong";
+import ListAlbum from "./pages/ListAlbum";
+
+// Artist Layout
+import ArtistLayout from "./components/ArtistLayout";
+
 const App = () => {
   const { audioRef, track, songsData } = useContext(PlayerContext);
   const [isLandingPage, setIsLandingPage] = useState(true);
 
   const handleStartListening = () => {
-    setIsLandingPage(false); // Hide the landing page when the user clicks "Start Listening"
+    setIsLandingPage(false);
   };
 
   return (
     <div className="h-screen bg-black w-full">
+      <ToastContainer />
       <Routes>
+        {/* Public Routes */}
         <Route path="/login" element={<Login />} />
         <Route path="/signup" element={<Signup />} />
 
+        {/* User Routes */}
         <Route element={<ProtectedRoute roleRequired={"user"} />}>
-          <Route path="/displayhome" element={<DisplayHome />} />{" "}
-          <Route path="/album/:id" element={<DisplayAlbum />} />{" "}
+          <Route path="/displayhome" element={<DisplayHome />} />
+          <Route path="/album/:id" element={<DisplayAlbum />} />
           <Route path="/profile" element={<EditButton />} />
-          <Route path="/playlist" element={<DisplayPlaylist />} />{" "}
+          <Route path="/playlist" element={<DisplayPlaylist />} />
         </Route>
 
+        {/* Admin Routes */}
         <Route element={<ProtectedRoute roleRequired={"admin"} />}>
           <Route path="/admin" element={<AdminDashboard />} />
         </Route>
-        {""}
-        {/* Add this */}
+
+        {/* Artist Routes with Layout */}
+        <Route element={<ProtectedRoute roleRequired={"artist"} />}>
+          <Route path="/artistpanel" element={<ArtistLayout />}>
+            <Route index element={<Dashboard />} />{" "}
+            <Route path="add-song" element={<AddSong />} />
+            <Route path="add-album" element={<AddAlbum />} />
+            <Route path="list-song" element={<ListSong />} />
+            <Route path="list-album" element={<ListAlbum />} />
+          </Route>
+        </Route>
+
+        {/* Home / Landing Page */}
         <Route
           path="/"
           element={
@@ -58,6 +84,7 @@ const App = () => {
         />
       </Routes>
 
+      {/* Audio Player */}
       <audio ref={audioRef} src={track?.audio_url || ""} preload="auto"></audio>
     </div>
   );

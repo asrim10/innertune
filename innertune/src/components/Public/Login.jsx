@@ -39,7 +39,7 @@ const Login = () => {
         } else if (role === "artist") {
           navigate("/artistpanel");
         } else if (role === "admin") {
-          navigate("/adminpane");
+          navigate("/admin");
         }
       } else {
         alert("Login failed! Check credentials.");

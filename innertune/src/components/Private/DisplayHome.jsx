@@ -1,10 +1,10 @@
 import React, { useContext } from "react";
-import Navbar from "../Navbar";
+import Navbar from "../HomeNavbar";
 import AlbumItem from "./AlbumItem";
 import { SongItem } from "./SongItem";
 import { PlayerContext } from "../../context/PlayerContext";
 import Player from "../Player";
-import { Sidebar } from "../Sidebar";
+import { Sidebar } from "../HomeSidebar";
 
 const DisplayHome = () => {
   const { songsData, albumsData } = useContext(PlayerContext);

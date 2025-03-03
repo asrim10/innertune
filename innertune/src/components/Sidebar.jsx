@@ -1,157 +1,73 @@
-import axios from "axios";
-import React, { useState } from "react";
-import { assets } from "../assets/frontend-assets/assets";
-import { useNavigate } from "react-router-dom";
+import React from "react";
+import { assets } from "../assets/assets.js";
+import { NavLink } from "react-router-dom";
 
-export const Sidebar = () => {
-  const navigate = useNavigate();
-  const [showSidebar, setShowSidebar] = useState(false); // Sidebar visibility
-  const [showModal, setShowModal] = useState(false);
-  const [playlistName, setPlaylistName] = useState("");
-  const [playlistDesc, setPlaylistDesc] = useState("");
-  const [playlistImage, setPlaylistImage] = useState(null);
-
-  const handleCreatePlaylist = async () => {
-    const formData = new FormData();
-    formData.append("name", playlistName);
-    formData.append("description", playlistDesc);
-    formData.append("userid", loggedInUserId); // Ensure user_id is included
-    if (playlistImage) {
-      formData.append("image", playlistImage);
-    }
-
-    try {
-      const response = await axios.post(
-        "http://localhost:4000/api/playlist/add",
-        formData,
-        { headers: { "Content-Type": "multipart/form-data" } }
-      );
-
-      if (response.status === 201) {
-        setShowModal(false);
-        setPlaylistName("");
-        setDescription("");
-        setPlaylistImage(null);
-      }
-    } catch (error) {
-      console.error("Error creating playlist:", error);
-    }
-  };
-
+const ArtistSidebar = () => {
   return (
-    <>
-      {/* Mobile menu button */}
-      <button
-        className="lg:hidden fixed top-4 left-4 z-50 text-white text-2xl"
-        onClick={() => setShowSidebar(!showSidebar)}
-      >
-        ☰
-      </button>
+    <div className="bg-[#003A10] min-h-screen pl-[4vw] text-white w-[250px]">
+      <img
+        src={assets.logo}
+        className="mt-5 w-[max(10vw,100px)] hidden sm:block"
+        alt="Logo"
+      />
+      <img
+        src={assets.logo_small}
+        className="mt-5 w-[max(5vw,40px)] mr-5 sm:hidden block"
+        alt="Small Logo"
+      />
+      <div className="flex flex-col gap-5 mt-10">
+        {/* Dashboard Link */}
+        <NavLink
+          to="/artistpanel"
+          className="flex items-center gap-2.5 text-gray-800 bg-white p-2 pr-[max(8vw,10px)] 
+                     drop-shadow-[-4px_4px_#00FF5B] text-sm font-medium"
+        >
+          <img src={assets.dashboard_icon} className="w-5" alt="Dashboard" />
+          <p className="hidden sm:block">Dashboard</p>
+        </NavLink>
 
-      {/* Sidebar */}
-      <div
-        className={`bg-[#121212] h-full p-2 flex flex-col gap-2 text-white fixed lg:relative z-40 transition-transform duration-300 ease-in-out ${
-          showSidebar ? "translate-x-0" : "-translate-x-full"
-        } lg:translate-x-0 w-64 lg:w-[20%]`}
-      >
-        <div className="h-[15%] rounded flex flex-col justify-around">
-          <div
-            onClick={() => {
-              navigate("/");
-              setShowSidebar(false);
-            }}
-            className="flex items-center gap-3 pl-8 cursor-pointer"
-          >
-            <img className="w-6" src={assets.home_icon} alt="Home" />
-            <p className="font-bold">Home</p>
-          </div>
-          <div className="flex items-center gap-3 pl-8 cursor-pointer">
-            <img className="w-6" src={assets.search_icon} alt="Search" />
-            <p className="font-bold">Search</p>
-          </div>
-        </div>
-        <div className="h-[85%] rounded">
-          <div className="p-4 flex items-center justify-between">
-            <div className="flex items-center gap-3">
-              <img className="w-8" src={assets.stack_icon} alt="Library" />
-              <p className="font-semibold">Your Library</p>
-            </div>
-            <div className="flex items-center gap-3">
-              <img className="w-5" src={assets.arrow_icon} alt="Arrow" />
-              <img
-                className="w-5 cursor-pointer"
-                src={assets.plus_icon}
-                alt="Add"
-                onClick={() => setShowModal(true)}
-              />
-            </div>
-          </div>
-          <div className="p-4 bg-[#242424] m-2 rounded font-semibold flex flex-col items-start justify-start gap-1 pl-4">
-            <h1>Create your playlist</h1>
-            <p className="font-light">It's easy, we will help you</p>
-            <button
-              className="px-4 py-1.5 bg-white text-[15px] text-black rounded-full mt-4 cursor-pointer"
-              onClick={() => setShowModal(true)}
-            >
-              Create Playlist
-            </button>
-          </div>
-          {showModal && (
-            <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50">
-              <div className="bg-[#242424] p-6 rounded shadow-lg w-96">
-                <h1 className="text-xl font-semibold mb-4">Create Playlist</h1>
-                <input
-                  type="file"
-                  accept="image/*"
-                  className="mb-3 w-full"
-                  onChange={(e) => setPlaylistImage(e.target.files[0])}
-                />
-                <input
-                  className="p-2 rounded w-full mb-2"
-                  type="text"
-                  placeholder="Playlist Name"
-                  value={playlistName}
-                  onChange={(e) => setPlaylistName(e.target.value)}
-                />
-                <input
-                  className="p-2 rounded w-full mb-4"
-                  type="text"
-                  placeholder="Description"
-                  value={playlistDesc}
-                  onChange={(e) => setPlaylistDesc(e.target.value)}
-                />
+        {/* Add Song Link */}
+        <NavLink
+          to="/artistpanel/add-song"
+          className="flex items-center gap-2.5 text-gray-800 bg-white p-2 pr-[max(8vw,10px)] 
+                     drop-shadow-[-4px_4px_#00FF5B] text-sm font-medium"
+        >
+          <img src={assets.add_song} className="w-5" alt="Add Song" />
+          <p className="hidden sm:block">Add Song</p>
+        </NavLink>
 
-                <div className="flex justify-end gap-2">
-                  <button
-                    className="px-4 py-2 bg-gray-600 text-white rounded cursor-pointer"
-                    onClick={() => setShowModal(false)}
-                  >
-                    Cancel
-                  </button>
-                  <button
-                    className="px-4 py-2 bg-green-500 text-white rounded cursor-pointer"
-                    onClick={handleCreatePlaylist}
-                  >
-                    Create
-                  </button>
-                </div>
-              </div>
-            </div>
-          )}
-          <div
-            className="p-4 flex items-center justify-between cursor-pointer"
-            onClick={() => {
-              navigate("/playlist");
-              setShowSidebar(false);
-            }}
-          >
-            <div className="flex items-center gap-3">
-              <img className="w-8" src={assets.stack_icon} alt="Playlists" />
-              <p className="font-semibold">Your Playlists</p>
-            </div>
-          </div>
-        </div>
+        {/* List Song Link */}
+        <NavLink
+          to="/artistpanel/list-song"
+          className="flex items-center gap-2.5 text-gray-800 bg-white p-2 pr-[max(8vw,10px)] 
+                     drop-shadow-[-4px_4px_#00FF5B] text-sm font-medium"
+        >
+          <img src={assets.song_icon} className="w-5" alt="List Song" />
+          <p className="hidden sm:block">List Song</p>
+        </NavLink>
+
+        {/* Add Album Link */}
+        <NavLink
+          to="/artistpanel/add-album"
+          className="flex items-center gap-2.5 text-gray-800 bg-white p-2 pr-[max(8vw,10px)] 
+                     drop-shadow-[-4px_4px_#00FF5B] text-sm font-medium"
+        >
+          <img src={assets.add_album} className="w-5" alt="Add Album" />
+          <p className="hidden sm:block">Add Album</p>
+        </NavLink>
+
+        {/* List Album Link */}
+        <NavLink
+          to="/artistpanel/list-album"
+          className="flex items-center gap-2.5 text-gray-800 bg-white p-2 pr-[max(8vw,10px)] 
+                     drop-shadow-[-4px_4px_#00FF5B] text-sm font-medium"
+        >
+          <img src={assets.album_icon} className="w-5" alt="List Album" />
+          <p className="hidden sm:block">List Album</p>
+        </NavLink>
       </div>
-    </>
+    </div>
   );
 };
+
+export default ArtistSidebar;
