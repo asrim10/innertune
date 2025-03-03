@@ -58,9 +58,14 @@ const PlayerContextProvider = ({ children }) => {
   };
 
   const next = () => {
-    if (currentTrackIndex < songsData.length - 1) {
-      setCurrentTrackIndex((prev) => prev + 1);
-      setTrack(songsData[currentTrackIndex + 1]);
+    const currentIndex = songsData.findIndex((song) => song.id === track.id);
+
+    if (currentIndex === songsData.length - 1) {
+      // If last song, play the first song
+      playWithId(songsData[0].id);
+    } else {
+      // Otherwise, play the next song
+      playWithId(songsData[currentIndex + 1].id);
     }
   };
 

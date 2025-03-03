@@ -9,6 +9,7 @@ import { Sidebar } from "./Sidebar";
 const DisplayHome = () => {
   const { songsData, albumsData } = useContext(PlayerContext);
   console.log(songsData);
+  console.log(albumsData);
 
   return (
     <div className="flex h-screen bg-black text-white">

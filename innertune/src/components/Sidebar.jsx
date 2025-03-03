@@ -90,7 +90,7 @@ export const Sidebar = () => {
             <h1>Create your playlist</h1>
             <p className="font-light">It's easy, we will help you</p>
             <button
-              className="px-4 py-1.5 bg-white text-[15px] text-black rounded-full mt-4"
+              className="px-4 py-1.5 bg-white text-[15px] text-black rounded-full mt-4 cursor-pointer"
               onClick={() => setShowModal(true)}
             >
               Create Playlist
@@ -123,13 +123,13 @@ export const Sidebar = () => {
 
                 <div className="flex justify-end gap-2">
                   <button
-                    className="px-4 py-2 bg-gray-600 text-white rounded"
+                    className="px-4 py-2 bg-gray-600 text-white rounded cursor-pointer"
                     onClick={() => setShowModal(false)}
                   >
                     Cancel
                   </button>
                   <button
-                    className="px-4 py-2 bg-green-500 text-white rounded"
+                    className="px-4 py-2 bg-green-500 text-white rounded cursor-pointer"
                     onClick={handleCreatePlaylist}
                   >
                     Create

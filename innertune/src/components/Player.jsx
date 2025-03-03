@@ -1,4 +1,4 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useState, useEffect } from "react";
 import { assets } from "../assets/frontend-assets/assets";
 import { PlayerContext } from "../context/PlayerContext";
 
@@ -22,6 +22,21 @@ const Player = () => {
   const [volume, setVolume] = useState(1);
   const [isMuted, setIsMuted] = useState(false);
   const [isShuffled, setIsShuffled] = useState(false);
+  const [shuffledSongs, setShuffledSongs] = useState([]);
+
+  useEffect(() => {
+    const handleKeyDown = (event) => {
+      if (event.code === "Space") {
+        event.preventDefault(); // Prevents page scrolling
+        playStatus ? pause() : play();
+      }
+    };
+
+    document.addEventListener("keydown", handleKeyDown);
+    return () => {
+      document.removeEventListener("keydown", handleKeyDown);
+    };
+  }, [playStatus, play, pause]);
 
   const changeVolume = (e) => {
     const newVolume = e.target.value;
@@ -45,7 +60,9 @@ const Player = () => {
   const toggleShuffle = () => {
     setIsShuffled(!isShuffled);
     if (!isShuffled) {
-      playRandomSong();
+      // Shuffle the playlist
+      let shuffled = [...songsData].sort(() => Math.random() - 0.5);
+      setShuffledSongs(shuffled);
     }
   };
 
@@ -127,15 +144,10 @@ const Player = () => {
 
       {/* Volume Control */}
       <div className="hidden lg:flex items-center gap-2 opacity-75">
-        <img className="w-4" src={assets.plays_icon} alt="plays" />
-        <img className="w-4" src={assets.mic_icon} alt="mic" />
-        <img className="w-4" src={assets.queue_icon} alt="queue" />
-        <img className="w-4" src={assets.speaker_icon} alt="speaker" />
-
         {/* Mute/Unmute */}
         <img
           className="w-4 cursor-pointer"
-          src={isMuted ? assets.mute_icon : assets.volume_icon}
+          src={isMuted ? assets.volume_icon : assets.volume_icon}
           alt="volume"
           onClick={toggleMute}
         />
