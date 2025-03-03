@@ -1,20 +1,43 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 const Profile = () => {
   const navigate = useNavigate();
+  const [user, setUser] = useState({
+    username: "",
+    email: "",
+    role: "",
+  });
 
-  const user = {
-    username: "John Doe",
-    email: "johndoe@example.com",
-    role: "Listener", // Change to "Artist" or "Admin" as needed
-  };
+  useEffect(() => {
+    const token = localStorage.getItem("token");
+
+    if (token) {
+      const fetchUserData = async () => {
+        try {
+          const response = await fetch("/api/user/id", {
+            headers: {
+              Authorization: `Bearer ${token}`, // Send the token for authentication
+            },
+          });
+
+          const data = await response.json();
+          if (data.data) {
+            setUser(data.data); // Set user data in state
+          }
+        } catch (error) {
+          console.error("Error fetching user data:", error);
+        }
+      };
+
+      fetchUserData();
+    }
+  }, []);
 
   const handleLogout = () => {
-    // Perform logout logic here (clear token, remove user session, etc.)
     console.log("User logged out");
     localStorage.removeItem("token");
-    navigate("/login"); // Redirect to login page after logout
+    navigate("/login");
   };
 
   return (
@@ -23,14 +46,14 @@ const Profile = () => {
         <div className="flex justify-center">
           <img
             className="w-20 h-20 rounded-full border-2 border-purple-500"
-            src="https://via.placeholder.com/150" // Replace with actual profile image URL
-            alt="Profile"
+            src="https://www.istockphoto.com/photos/placeholder-image" // Replace with actual profile image URL
           />
         </div>
         <h2 className="text-2xl font-semibold mt-4">{user.username}</h2>
-        <p className="text-gray-400 text-sm">{user.email}</p>
+        <p className="text-gray-400 text-sm">{user.email}</p>{" "}
+        {/* Display email here */}
         <p className="bg-purple-500 text-black px-3 py-1 rounded-lg mt-3 inline-block">
-          {user.role}
+          {user.role} {/* Display role here */}
         </p>
         <button className="mt-4 w-full bg-purple-600 hover:bg-purple-700 py-2 rounded-lg">
           Edit Profile

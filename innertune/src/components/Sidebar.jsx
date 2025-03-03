@@ -1,8 +1,15 @@
 import React from "react";
 import { assets } from "../assets/assets.js";
-import { NavLink } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom"; // Import useNavigate
 
 const ArtistSidebar = () => {
+  const navigate = useNavigate(); // Initialize useNavigate hook
+
+  const handleLogout = () => {
+    localStorage.removeItem("token"); // Remove the token from localStorage
+    navigate("/login"); // Navigate to the login page
+  };
+
   return (
     <div className="bg-[#003A10] min-h-screen pl-[4vw] text-white w-[250px]">
       <img
@@ -66,6 +73,14 @@ const ArtistSidebar = () => {
           <p className="hidden sm:block">List Album</p>
         </NavLink>
       </div>
+
+      {/* Logout Button */}
+      <button
+        onClick={handleLogout}
+        className="mt-5 w-full bg-red-600 hover:bg-red-700 py-2 rounded-lg text-white"
+      >
+        Logout
+      </button>
     </div>
   );
 };

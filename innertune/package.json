@@ -17,6 +17,7 @@
     "bootstrap": "^5.3.3",
     "button": "^1.1.1",
     "card": "^2.5.4",
+    "jwt-decode": "^4.0.0",
     "lucide-react": "^0.475.0",
     "mdb-react-ui-kit": "^9.0.0",
     "postcss": "^8.5.1",
