@@ -1,7 +1,7 @@
 import React, { useState, useContext } from "react";
 import { Route, Routes } from "react-router-dom";
 import { ToastContainer } from "react-toastify";
-import { Sidebar } from "./components/HomeSidebar";
+import { Sidebar } from "./components/Private/HomeSidebar";
 import Player from "./components/Player";
 import Display from "./components/Display";
 import { PlayerContext } from "./context/PlayerContext";

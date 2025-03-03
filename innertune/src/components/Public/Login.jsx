@@ -33,6 +33,10 @@ const Login = () => {
         localStorage.setItem("role", role);
         localStorage.setItem("userId", userId);
 
+        // Log the values after saving them to localStorage
+        console.log("Token, Role, and UserId saved in localStorage");
+        console.log("UserId:", localStorage.getItem("userId")); // Log to ensure the value is saved
+
         // Redirect based on role
         if (role === "user") {
           navigate("/displayhome");

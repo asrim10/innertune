@@ -1,14 +1,37 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import axios from "axios";
 
 export default function AdminDashboard() {
-  const [users, setUsers] = useState([
-    { id: 1, name: "John Doe", email: "john@example.com" },
-    { id: 2, name: "Jane Smith", email: "jane@example.com" },
-  ]);
+  const [users, setUsers] = useState([]); // Use users instead of user (for consistency)
+  const [loading, setLoading] = useState(true);
 
-  const handleDelete = (id) => {
-    setUsers(users.filter((user) => user.id !== id));
+  useEffect(() => {
+    const fetchUsers = async () => {
+      try {
+        const response = await axios.get("http://localhost:4000/api/user/user");
+        setUsers(response.data.data); // Make sure the response has a 'data' field with user data
+        setLoading(false);
+      } catch (error) {
+        console.error("Error fetching users:", error);
+        setLoading(false);
+      }
+    };
+
+    fetchUsers();
+  }, []); // Empty dependency array to run the effect only once on mount
+
+  const handleDelete = async (id) => {
+    try {
+      await axios.delete(`http://localhost:4000/api/user/${id}`); // Delete user by ID
+      setUsers(users.filter((user) => user.id !== id)); // Remove user from state
+    } catch (error) {
+      console.error("Error deleting user:", error);
+    }
   };
+
+  if (loading) {
+    return <div>Loading...</div>;
+  }
 
   return (
     <div className="p-6 space-y-6">
@@ -36,7 +59,7 @@ export default function AdminDashboard() {
           <tbody>
             {users.map((user) => (
               <tr key={user.id} className="text-center">
-                <td className="border p-2">{user.name}</td>
+                <td className="border p-2">{user.username}</td>
                 <td className="border p-2">{user.email}</td>
                 <td className="border p-2">
                   <button className="mr-2 px-3 py-1 bg-blue-500 text-white rounded">

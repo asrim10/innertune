@@ -1,6 +1,6 @@
 import axios from "axios";
 import React, { useState } from "react";
-import { assets } from "../assets/frontend-assets/assets";
+import { assets } from "../../assets/frontend-assets/assets";
 import { useNavigate } from "react-router-dom";
 
 export const Sidebar = () => {
@@ -11,11 +11,20 @@ export const Sidebar = () => {
   const [playlistDesc, setPlaylistDesc] = useState("");
   const [playlistImage, setPlaylistImage] = useState(null);
 
-  const handleCreatePlaylist = async () => {
+  const handleCreatePlaylist = async (e) => {
+    e.preventDefault(); // Prevent page reload on form submit
+
+    const loggedInUserId = localStorage.getItem("userId");
+    if (!loggedInUserId) {
+      alert("You must be logged in to create a playlist.");
+      return;
+    }
+
     const formData = new FormData();
     formData.append("name", playlistName);
     formData.append("description", playlistDesc);
-    formData.append("userid", loggedInUserId); // Ensure user_id is included
+    formData.append("user_id", loggedInUserId); // Use the retrieved userId
+
     if (playlistImage) {
       formData.append("image", playlistImage);
     }
@@ -29,9 +38,9 @@ export const Sidebar = () => {
 
       if (response.status === 201) {
         setShowModal(false);
-        setPlaylistName("");
-        setDescription("");
-        setPlaylistImage(null);
+        setPlaylistName(""); // Reset playlist name
+        setPlaylistDesc(""); // Reset playlist description
+        setPlaylistImage(null); // Reset playlist image
       }
     } catch (error) {
       console.error("Error creating playlist:", error);

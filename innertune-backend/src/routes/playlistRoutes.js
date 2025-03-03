@@ -15,20 +15,21 @@ playlistRouter.post("/add", upload.single("image"), async (req, res) => {
     return res.status(400).json({ error: "Missing required fields" });
   }
 
-  try {
-    const newPlaylist = await Playlist.create({
-      playlistName: name,
-      playlistDesc: description,
-      playlistImg: req.file ? `/uploads/${req.file.filename}` : null,
-      user_id: user_id,  // Ensure this is passed
-    });
+ try {
+  const newPlaylist = await Playlist.create({
+    playlistName: name,
+    playlistDesc: description,
+    playlistImg: req.file ? `/uploads/${req.file.filename}` : null,
+    user_id: user_id, // Ensure this is passed
+  });
 
-    console.log("Playlist saved to DB:", newPlaylist);
-    res.status(201).json({ message: "Playlist created", data: newPlaylist });
-  } catch (error) {
-    console.error("Error saving playlist:", error);
-    res.status(500).json({ error: "Internal Server Error" });
-  }
+  console.log("Playlist saved to DB:", newPlaylist);
+  res.status(201).json({ message: "Playlist created", data: newPlaylist });
+} catch (error) {
+  console.error("Error saving playlist:", error.message); // Log the error message
+  res.status(500).json({ error: "Internal Server Error", details: error.message }); // Return error details for debugging
+}
+
 });
 
 
