@@ -1,10 +1,10 @@
 import React from "react";
-import { LandingNavbar } from "./LandingNavbar";
-import LandingHero from "./LandingHero";
-import LandingFeatures from "./LandingFeatures";
-import LandingWorkFLow from "./LandingWorkFLow";
-import LandingTestimonial from "./LandingTestimonial";
-import LandingFooter from "./LandingFooter";
+import { LandingNavbar } from "../LandingNavbar";
+import LandingHero from "../LandingHero";
+import LandingFeatures from "../LandingFeatures";
+import LandingWorkFLow from "../LandingWorkFLow";
+import LandingTestimonial from "../LandingTestimonial";
+import LandingFooter from "../LandingFooter";
 
 const LandingPage = () => {
   return (

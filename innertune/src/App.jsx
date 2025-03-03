@@ -4,13 +4,13 @@ import { Sidebar } from "./components/Sidebar";
 import Player from "./components/Player";
 import Display from "./components/Display";
 import { PlayerContext } from "./context/PlayerContext";
-import LandingPage from "./components/LandingPage";
-import Login from "./components/Login";
-import Signup from "./components/SignupPage";
-import DisplayHome from "./components/DisplayHome";
-import EditButton from "./components/Profile";
-import DisplayPlaylist from "./components/DisplayPlaylists";
-import DisplayAlbum from "./components/DisplayAlbum";
+import LandingPage from "./components/Public/LandingPage";
+import Login from "./components/Public/Login";
+import Signup from "./components/Public/SignupPage";
+import DisplayHome from "./components/Private/DisplayHome";
+import EditButton from "./components/Private/Profile";
+import DisplayPlaylist from "./components/Private/DisplayPlaylists";
+import DisplayAlbum from "./components/Private/DisplayAlbum";
 import AdminDashboard from "./components/Private/AdminDashboard";
 
 const App = () => {

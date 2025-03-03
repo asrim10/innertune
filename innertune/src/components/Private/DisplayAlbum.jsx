@@ -1,10 +1,10 @@
 import React, { useContext, useEffect, useState } from "react";
-import Navbar from "./Navbar";
-import { Sidebar } from "./Sidebar";
-import Player from "./Player";
+import Navbar from "../Navbar";
+import { Sidebar } from "../Sidebar";
+import Player from "../Player";
 import { useParams } from "react-router-dom";
-import { assets } from "../assets/frontend-assets/assets";
-import { PlayerContext } from "../context/PlayerContext";
+import { assets } from "../../assets/frontend-assets/assets";
+import { PlayerContext } from "../../context/PlayerContext";
 
 const DisplayAlbum = () => {
   const { id } = useParams(); // Get album ID from URL
