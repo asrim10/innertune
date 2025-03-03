@@ -5,16 +5,14 @@ import { SpeakerIcon } from "lucide-react";
 
 import user1 from "../assets/profile-pictures/user1.jpg";
 import user2 from "../assets/profile-pictures/user2.jpg";
-import user3 from "../assets/profile-pictures/user3.jpg";
 import user4 from "../assets/profile-pictures/user4.jpg";
-import user5 from "../assets/profile-pictures/user5.jpg";
-import user6 from "../assets/profile-pictures/user6.jpg";
 
 export const navItems = [
-  { label: "Features", href: "#" },
-  { label: "Workflow", href: "#" },
-  { label: "Pricing", href: "#" },
-  { label: "Testimonials", href: "#" },
+  { label: "Hero", href: "#hero-section" },
+  { label: "Features", href: "#landing-features" },
+  { label: "Workflow", href: "#landing-workflow" },
+  { label: "Testimonials", href: "#landing-testo" },
+  { label: "Footer", href: "#landing-footer" },
 ];
 
 export const testimonials = [
@@ -68,6 +66,10 @@ export const checklistItems = [
     title: "Easy access to your favourites",
     description:
       "Hey, music lovers! Looking for the perfect snack to enjoy with your tunes?",
+  },
+  {
+    title: "Listen according to your mood",
+    description: "Sad, Happy or Angry. Listen music of your choice",
   },
 ];
 

@@ -1,5 +1,6 @@
 import React, { useState } from "react";
-import { Link } from "react-router-dom"; // Use Link for navigation
+import { Link as ScrollLink } from "react-scroll"; // Import from react-scroll
+import { Link } from "react-router-dom"; // React Router for normal navigation
 import logo from "../assets/logo.png";
 import { navItems } from "../constants";
 import { Menu, X } from "lucide-react";
@@ -15,16 +16,30 @@ export const LandingNavbar = () => {
     <nav className="sticky top-0 z-50 py-3 backdrop-blur-lg border-b border-neutral-700/80">
       <div className="container px-4 mx-auto relative tx-sm">
         <div className="flex justify-between items-center">
-          <div className="flex-items-center flex-shrink-0">
+          <div className="flex items-center flex-shrink-0">
             <img src={logo} alt="logo" className="h-10 w-10 mr-2" />
             <span className="text-xl tracking-tight">Innertune</span>
           </div>
           <ul className="hidden lg:flex ml-14 space-x-12">
             {navItems.map((item, index) => (
               <li key={index}>
-                <Link to={item.href} className="text-white hover:text-gray-400">
-                  {item.label}
-                </Link>
+                {item.href.startsWith("#") ? (
+                  <ScrollLink
+                    to={item.href.substring(1)}
+                    smooth={true}
+                    duration={500}
+                    className="cursor-pointer text-white hover:text-gray-400"
+                  >
+                    {item.label}
+                  </ScrollLink>
+                ) : (
+                  <Link
+                    to={item.href}
+                    className="text-white hover:text-gray-400"
+                  >
+                    {item.label}
+                  </Link>
+                )}
               </li>
             ))}
           </ul>
@@ -50,12 +65,24 @@ export const LandingNavbar = () => {
             <ul>
               {navItems.map((item, index) => (
                 <li key={index} className="py-4">
-                  <Link
-                    to={item.href}
-                    className="text-white hover:text-gray-400"
-                  >
-                    {item.label}
-                  </Link>
+                  {item.href.startsWith("#") ? (
+                    <ScrollLink
+                      to={item.href.substring(1)}
+                      smooth={true}
+                      duration={500}
+                      className="cursor-pointer text-white hover:text-gray-400"
+                      onClick={toggleNavbar}
+                    >
+                      {item.label}
+                    </ScrollLink>
+                  ) : (
+                    <Link
+                      to={item.href}
+                      className="text-white hover:text-gray-400"
+                    >
+                      {item.label}
+                    </Link>
+                  )}
                 </li>
               ))}
             </ul>

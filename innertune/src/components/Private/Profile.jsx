@@ -13,6 +13,7 @@ const Profile = () => {
   const handleLogout = () => {
     // Perform logout logic here (clear token, remove user session, etc.)
     console.log("User logged out");
+    localStorage.removeItem("token");
     navigate("/login"); // Redirect to login page after logout
   };
 

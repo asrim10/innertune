@@ -2,7 +2,6 @@ import React, { useContext, useEffect, useRef } from "react";
 import { Route, Routes, useLocation } from "react-router-dom";
 import DisplayHome from "./Private/DisplayHome";
 import DisplayAlbum from "./Private/DisplayAlbum";
-import { albumsData } from "../assets/frontend-assets/assets";
 import { PlayerContext } from "../context/PlayerContext";
 
 const Display = () => {
@@ -40,5 +39,4 @@ const Display = () => {
     </div>
   );
 };
-
 export default Display;
